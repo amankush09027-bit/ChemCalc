@@ -1,232 +1,320 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+// ===============================
+// pH CALCULATOR
+// ===============================
 
-    <title>B.Pharm Smart Calculator</title>
+function calculatePH() {
 
-    <!-- CSS File -->
-    <link rel="stylesheet" href="style.css">
-</head>
+    let h = parseFloat(document.getElementById("hplus").value);
 
-<body>
+    if (isNaN(h) || h <= 0) {
+        document.getElementById("phResult").innerHTML =
+            "⚠️ Please enter a valid H⁺ concentration.";
+        return;
+    }
 
-<div class="container">
+    let ph = -Math.log10(h);
 
-    <h1>💊 B.Pharm Smart Calculator</h1>
-    <p class="subtitle">Pharmacy Calculations Made Easy</p>
-
-
-    <!-- pH Calculator -->
-    <div class="card">
-        <h2>🧪 pH Calculator</h2>
-
-        <input
-            type="number"
-            id="hplus"
-            placeholder="[H⁺] Concentration"
-            step="any"
-        >
-
-        <button onclick="calculatePH()">Calculate pH</button>
-
-        <div id="phResult" class="result"></div>
-    </div>
+    document.getElementById("phResult").innerHTML =
+        "✅ pH = " + ph.toFixed(3);
+}
 
 
-    <!-- Molarity Calculator -->
-    <div class="card">
-        <h2>⚗️ Molarity Calculator</h2>
+// ===============================
+// MOLARITY CALCULATOR
+// Formula: M = Moles / Volume
+// ===============================
 
-        <input
-            type="number"
-            id="moles"
-            placeholder="Moles"
-            step="any"
-        >
+function calculateMolarity() {
 
-        <input
-            type="number"
-            id="volume"
-            placeholder="Volume (L)"
-            step="any"
-        >
+    let moles = parseFloat(document.getElementById("moles").value);
+    let volume = parseFloat(document.getElementById("volume").value);
 
-        <button onclick="calculateMolarity()">Calculate</button>
+    if (isNaN(moles) || isNaN(volume) || volume <= 0) {
+        document.getElementById("molarityResult").innerHTML =
+            "⚠️ Please enter valid values.";
+        return;
+    }
 
-        <div id="molarityResult" class="result"></div>
-    </div>
+    let molarity = moles / volume;
 
-
-    <!-- Normality Calculator -->
-    <div class="card">
-        <h2>⚖️ Normality Calculator</h2>
-
-        <input
-            type="number"
-            id="grams"
-            placeholder="Weight (g)"
-            step="any"
-        >
-
-        <input
-            type="number"
-            id="eqWeight"
-            placeholder="Equivalent Weight"
-            step="any"
-        >
-
-        <input
-            type="number"
-            id="normalVolume"
-            placeholder="Volume (L)"
-            step="any"
-        >
-
-        <button onclick="calculateNormality()">Calculate</button>
-
-        <div id="normalityResult" class="result"></div>
-    </div>
+    document.getElementById("molarityResult").innerHTML =
+        "✅ Molarity = " + molarity.toFixed(4) + " M";
+}
 
 
-    <!-- PPM Calculator -->
-    <div class="card">
-        <h2>🔬 PPM Calculator</h2>
+// ===============================
+// NORMALITY CALCULATOR
+// Formula: N = Weight / (Eq. Weight × Volume)
+// ===============================
 
-        <input
-            type="number"
-            id="ppmMass"
-            placeholder="Mass of Solute"
-            step="any"
-        >
+function calculateNormality() {
 
-        <input
-            type="number"
-            id="ppmVolume"
-            placeholder="Volume of Solution"
-            step="any"
-        >
+    let grams = parseFloat(document.getElementById("grams").value);
+    let eqWeight = parseFloat(document.getElementById("eqWeight").value);
+    let volume = parseFloat(document.getElementById("normalVolume").value);
 
-        <button onclick="calculatePPM()">Calculate</button>
+    if (
+        isNaN(grams) ||
+        isNaN(eqWeight) ||
+        isNaN(volume) ||
+        eqWeight <= 0 ||
+        volume <= 0
+    ) {
+        document.getElementById("normalityResult").innerHTML =
+            "⚠️ Please enter valid values.";
+        return;
+    }
 
-        <div id="ppmResult" class="result"></div>
-    </div>
+    let normality = grams / (eqWeight * volume);
 
-
-    <!-- Angle of Repose -->
-    <div class="card">
-        <h2>📐 Angle of Repose</h2>
-
-        <input
-            type="number"
-            id="height"
-            placeholder="Height (h)"
-            step="any"
-        >
-
-        <input
-            type="number"
-            id="radius"
-            placeholder="Radius (r)"
-            step="any"
-        >
-
-        <button onclick="calculateAngle()">Calculate</button>
-
-        <div id="angleResult" class="result"></div>
-    </div>
+    document.getElementById("normalityResult").innerHTML =
+        "✅ Normality = " + normality.toFixed(4) + " N";
+}
 
 
-    <!-- Dose Calculator -->
-    <div class="card">
-        <h2>💉 Dose Calculator</h2>
+// ===============================
+// PPM CALCULATOR
+// ===============================
 
-        <input
-            type="number"
-            id="desiredDose"
-            placeholder="Desired Dose"
-            step="any"
-        >
+function calculatePPM() {
 
-        <input
-            type="number"
-            id="availableDose"
-            placeholder="Available Dose"
-            step="any"
-        >
+    let mass = parseFloat(document.getElementById("ppmMass").value);
+    let volume = parseFloat(document.getElementById("ppmVolume").value);
 
-        <input
-            type="number"
-            id="quantity"
-            placeholder="Quantity"
-            step="any"
-        >
+    if (
+        isNaN(mass) ||
+        isNaN(volume) ||
+        volume <= 0
+    ) {
+        document.getElementById("ppmResult").innerHTML =
+            "⚠️ Please enter valid values.";
+        return;
+    }
 
-        <button onclick="calculateDose()">Calculate</button>
+    let ppm = (mass / volume) * 1000000;
 
-        <div id="doseResult" class="result"></div>
-    </div>
+    document.getElementById("ppmResult").innerHTML =
+        "✅ PPM = " + ppm.toFixed(2);
+}
 
 
-    <!-- Strength Calculator -->
-    <div class="card">
-        <h2>💊 Percentage Strength</h2>
+// ===============================
+// ANGLE OF REPOSE
+// Formula: θ = tan⁻¹(h/r)
+// ===============================
 
-        <input
-            type="number"
-            id="strengthAmount"
-            placeholder="Amount of Drug"
-            step="any"
-        >
+function calculateAngle() {
 
-        <input
-            type="number"
-            id="strengthVolume"
-            placeholder="Total Volume"
-            step="any"
-        >
+    let height = parseFloat(document.getElementById("height").value);
+    let radius = parseFloat(document.getElementById("radius").value);
 
-        <button onclick="calculateStrength()">Calculate</button>
+    if (
+        isNaN(height) ||
+        isNaN(radius) ||
+        height < 0 ||
+        radius <= 0
+    ) {
+        document.getElementById("angleResult").innerHTML =
+            "⚠️ Please enter valid values.";
+        return;
+    }
 
-        <div id="strengthResult" class="result"></div>
-    </div>
+    let angle =
+        Math.atan(height / radius) * (180 / Math.PI);
 
-
-    <!-- Compound Information -->
-    <div class="card">
-
-        <h2>🧬 Compound Information</h2>
-
-        <select id="compound" onchange="showCompound()">
-
-            <option value="">Select Compound</option>
-
-            <option value="paracetamol">Paracetamol</option>
-            <option value="aspirin">Aspirin</option>
-            <option value="ibuprofen">Ibuprofen</option>
-            <option value="caffeine">Caffeine</option>
-            <option value="acetone">Acetone</option>
-            <option value="ethanol">Ethanol</option>
-            <option value="methanol">Methanol</option>
-            <option value="water">Water</option>
-
-        </select>
-
-        <div id="compoundResult" class="compound"></div>
-
-    </div>
+    document.getElementById("angleResult").innerHTML =
+        "✅ Angle of Repose = " + angle.toFixed(2) + "°";
+}
 
 
-    <footer>
-        B.Pharm Smart Calculator © 2026
-    </footer>
+// ===============================
+// DOSE CALCULATOR
+// Formula: Required = (Desired / Available) × Quantity
+// ===============================
 
-</div>
+function calculateDose() {
+
+    let desired = parseFloat(
+        document.getElementById("desiredDose").value
+    );
+
+    let available = parseFloat(
+        document.getElementById("availableDose").value
+    );
+
+    let quantity = parseFloat(
+        document.getElementById("quantity").value
+    );
+
+    if (
+        isNaN(desired) ||
+        isNaN(available) ||
+        isNaN(quantity) ||
+        available <= 0 ||
+        quantity <= 0
+    ) {
+        document.getElementById("doseResult").innerHTML =
+            "⚠️ Please enter valid values.";
+        return;
+    }
+
+    let required =
+        (desired / available) * quantity;
+
+    document.getElementById("doseResult").innerHTML =
+        "✅ Required Quantity = " + required.toFixed(2);
+}
 
 
-<!-- JavaScript File -->
-<script src="script.js"></script>
+// ===============================
+// PERCENTAGE STRENGTH
+// Formula: % = Amount / Volume × 100
+// ===============================
 
-</body>
-</html>
+function calculateStrength() {
+
+    let amount = parseFloat(
+        document.getElementById("strengthAmount").value
+    );
+
+    let volume = parseFloat(
+        document.getElementById("strengthVolume").value
+    );
+
+    if (
+        isNaN(amount) ||
+        isNaN(volume) ||
+        volume <= 0
+    ) {
+        document.getElementById("strengthResult").innerHTML =
+            "⚠️ Please enter valid values.";
+        return;
+    }
+
+    let strength =
+        (amount / volume) * 100;
+
+    document.getElementById("strengthResult").innerHTML =
+        "✅ Percentage Strength = " +
+        strength.toFixed(2) + "%";
+}
+
+
+// ===============================
+// COMPOUND INFORMATION
+// ===============================
+
+function showCompound() {
+
+    let compound =
+        document.getElementById("compound").value;
+
+    let result =
+        document.getElementById("compoundResult");
+
+
+    const compounds = {
+
+        paracetamol: {
+            name: "Paracetamol",
+            formula: "C₈H₉NO₂",
+            molecular: "151.16 g/mol",
+            state: "Solid",
+            appearance: "White crystalline powder",
+            melting: "169–170 °C",
+            boiling: "Decomposes"
+        },
+
+        aspirin: {
+            name: "Aspirin",
+            formula: "C₉H₈O₄",
+            molecular: "180.16 g/mol",
+            state: "Solid",
+            appearance: "White crystalline powder",
+            melting: "136 °C",
+            boiling: "Decomposes"
+        },
+
+        ibuprofen: {
+            name: "Ibuprofen",
+            formula: "C₁₃H₁₈O₂",
+            molecular: "206.28 g/mol",
+            state: "Solid",
+            appearance: "White crystalline powder",
+            melting: "75–78 °C",
+            boiling: "Decomposes"
+        },
+
+        caffeine: {
+            name: "Caffeine",
+            formula: "C₈H₁₀N₄O₂",
+            molecular: "194.19 g/mol",
+            state: "Solid",
+            appearance: "White crystalline powder",
+            melting: "235–238 °C",
+            boiling: "Decomposes"
+        },
+
+        acetone: {
+            name: "Acetone",
+            formula: "C₃H₆O",
+            molecular: "58.08 g/mol",
+            state: "Liquid",
+            appearance: "Colorless liquid",
+            melting: "−95 °C",
+            boiling: "56 °C"
+        },
+
+        ethanol: {
+            name: "Ethanol",
+            formula: "C₂H₆O",
+            molecular: "46.07 g/mol",
+            state: "Liquid",
+            appearance: "Colorless liquid",
+            melting: "−114 °C",
+            boiling: "78 °C"
+        },
+
+        methanol: {
+            name: "Methanol",
+            formula: "CH₄O",
+            molecular: "32.04 g/mol",
+            state: "Liquid",
+            appearance: "Colorless liquid",
+            melting: "−98 °C",
+            boiling: "65 °C"
+        },
+
+        water: {
+            name: "Water",
+            formula: "H₂O",
+            molecular: "18.015 g/mol",
+            state: "Liquid",
+            appearance: "Colorless liquid",
+            melting: "0 °C",
+            boiling: "100 °C"
+        }
+    };
+
+
+    if (compound === "") {
+
+        result.innerHTML = "";
+
+        return;
+    }
+
+
+    let c = compounds[compound];
+
+
+    result.innerHTML = `
+        <strong>Name:</strong> ${c.name}<br>
+        <strong>Molecular Formula:</strong> ${c.formula}<br>
+        <strong>Molecular Weight:</strong> ${c.molecular}<br>
+        <strong>State:</strong> ${c.state}<br>
+        <strong>Appearance:</strong> ${c.appearance}<br>
+        <strong>Melting Point:</strong> ${c.melting}<br>
+        <strong>Boiling Point:</strong> ${c.boiling}
+    `;
+}
